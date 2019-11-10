@@ -1,0 +1,35 @@
+import random
+
+def mm(a,b):
+   return (a,b) if a>b else (b,a)
+
+
+def task(minimum, maximum, s = None):
+"""Creates a addition/subtraction task with a result between minimum and maximum.
+If 's' is provided as 1 an addition task is generated, else a subtraction.
+Returns a tuple (a,b,'+' or '-') as result."""
+    r = -1
+    s = s or random.choice([1,-1])
+    while not minimum <= r <= maximum:
+        a,b = mm(random.choice(range(40,10001)), random.choice(range(40,10001)))
+        r = a + s*b
+
+    return (a,b,'+' if s==1 else '-')
+
+# create 8 add and 8 sub tasks
+pp = 8
+plus = [task(57, 9999, 1) for _ in range(pp)]
+minus = [task(57, 9999, -1) for _ in range(pp)]
+
+# print tasks in 2 columns
+for p in zip(plus,minus):
+    a,b,c,d,e,f = (*p[0],*p[1])
+    print( f"""
+{a:>10}{d:>14}
+  {c:<2}{b:>6}      {f:<2}{e:>6}
+
+  {'-'*8}      {'-'*8}
+
+
+""")
+
